@@ -1,0 +1,25 @@
+#!/bin/bash
+
+CDIR=$(pwd -P)
+DIR=$(cd $(dirname $0); pwd -P)
+
+doc="$1"
+out="out"
+template="professional"
+library="${DIR}/library"
+pics="${DIR}/pics/"
+docprefix="document"
+document="${docprefix}.tex"
+docname=$(basename ${doc} | sed -E 's,(.*)\.[^\.]+$,\1,')
+
+mkdir -p ${out}
+cat ${library}/${template}.tex ${doc} ${library}/END.tex > ${document}
+sed -i.bak "s,_DIR_,${CDIR},g" ${document}
+sed -i.bak "s,_PICS_,${pics},g" ${document}
+pdflatex -output-directory=${out} ${document}
+pdflatex -output-directory=${out} ${document}
+rm -f ${out}/*.log ${out}/*.aux ${out}/*.toc ${document}.bak ${document}
+mv ${out}/${docprefix}.pdf ${out}/${docname}.pdf
+open ${out}/${docname}.pdf
+#word:
+#	pandoc -s ${doc} -o ${out}/${docname}.rtf

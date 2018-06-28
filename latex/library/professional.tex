@@ -1,0 +1,135 @@
+\documentclass[10pt]{article}
+\usepackage{geometry}
+\usepackage{lipsum}% just to generate filler text
+\usepackage{setspace}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{helvet}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{titling}
+\usepackage{tabularx}
+
+%Input the document information
+\input{_DIR_/docinfo.tex}
+
+%Custom maketitle
+\makeatletter
+\renewcommand{\maketitle}{
+  \begin{flushleft}
+    {\LARGE \textbf{\cTitle}} \\
+    \vspace{0.5cm}
+    \hrulefill \\
+    \vspace{0.5cm}
+  \end{flushleft}
+
+  \begin{flushleft}
+    \begin{tabular}{ p{2.3cm} l }
+      & {\large \textbf{\cSubtitle}} \\
+    \end{tabular}
+    \vspace{0.5cm}
+  \end{flushleft}
+  \begin{flushleft}
+    \begin{tabular}{ p{2.3cm} l }
+      Identifikation & \cIdentification \\
+      Version & \cVersion \\
+      Klassifizierung & \cClassification \\
+      Erstelldatum & \cCreationdate \\
+      Dokumenttyp & \cDocumenttype \\
+      Status & \cDocStatus \\
+      Empfänger & \cRecipient \\
+      Zuständig & \cResponsible \\
+    \end{tabular}
+  \end{flushleft}
+  \begin{flushleft}
+    \vspace{0.5cm}
+    \hrulefill \\
+    \vspace{0.5cm}
+  \end{flushleft}
+  \begin{flushleft}
+    \begin{tabular}{ p{2.3cm} l }
+      \copyright\hspace{0.3em}2018 & \cCompany \\
+      & \cAddress \\
+      & \cPlace \\
+    \end{tabular}
+  \end{flushleft}
+
+}
+\makeatother
+
+%Set the geometry of the page
+\geometry{a4paper, tmargin=2.5cm, bmargin=5.5cm}
+
+%Path where the pics resides
+\graphicspath{ {_PICS_} }
+
+%Set Arial as default font
+\renewcommand{\familydefault}{\sfdefault}
+
+%Lines for header and footer
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+
+%First page Pagestyle
+\fancypagestyle{plain}{%
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyhf{}
+  %\fancyhead[]{\footnotesize Page \thepage\ of \pageref{LastPage}}
+  \lhead{
+    \begin{tabular}{ l l }
+      \multirow{1}{1.8cm}{\includegraphics[width=1.8cm]{\cLogo}} & \\
+      & \makecell[l]{\scriptsize  \cCompany \\ \scriptsize \cAddress \\ \scriptsize \cPlace}
+    \end{tabular}
+  }
+  \rhead{
+    \begin{tabular}{ r r }
+      & \\
+      & \makecell[r]{\scriptsize  \cWeb \\ \scriptsize \cPhone \\ \scriptsize \cEmail} \\
+    \end{tabular}
+  }
+}
+
+%Title of table of tableofcontents
+\renewcommand{\contentsname}{Inhalt}
+
+%Pagestyle
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\footnotesize\thepage/\pageref{LastPage}}
+\lhead{\footnotesize\cTitle}
+\lfoot{\footnotesize{\cIdentification\hspace{0.3em}/ \cVersion\hspace{0.3em}/ \cCreationdate\hspace{0.3em}/ \cClassification}}
+\rfoot{\footnotesize\cCompany}
+
+%Common document information
+%\title{\cTitle}
+%\author{\cAuthor}
+
+%tabulars row Lightweight
+\setlength{\extrarowheight}{1ex}
+
+%Start of the document
+\begin{document}
+
+%No page number on the first page
+\clearpage
+\hfill
+\vspace{2cm}
+\maketitle
+\thispagestyle{plain}
+
+%table of contents
+\clearpage
+\tableofcontents
+
+%Version history
+\clearpage
+\section*{Versionsgeschichte}
+\input{_DIR_/history.tex}
+
+%Abstract
+\section*{Zusammenfassung kurz}
+\input{_DIR_/abstract.tex}
+\clearpage
